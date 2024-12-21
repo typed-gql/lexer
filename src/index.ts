@@ -45,15 +45,6 @@ function arrayIncludes<T extends string>(
   return (array as readonly string[]).includes(string);
 }
 
-function indexOf(from: string, search: string, offset: number): number {
-  const result = from.indexOf(search, offset);
-  if (result === -1) {
-    return -1;
-  } else {
-    return result - offset;
-  }
-}
-
 export function lex(source: string): Token[] | Error {
   const result: Token[] = [];
   let index = 0;

@@ -2,6 +2,7 @@
   "name": "@typed-gql/lexer",
   "version": "0.1.0",
   "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json && cpy README.md dist && package-json-minifier",
     "test": "tsx test"
   },
   "repository": {
@@ -11,6 +12,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^22.10.2",
+    "cpy-cli": "^5.0.0",
+    "package.json-minifier": "^0.0.4",
+    "rimraf": "^6.0.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
