@@ -1,0 +1,44 @@
+[
+  {
+    "index": 0,
+    "type": "name",
+    "value": "Hello"
+  },
+  {
+    "index": 6,
+    "type": "name",
+    "value": "world"
+  },
+  {
+    "index": 11,
+    "type": "!"
+  },
+  {
+    "index": 13,
+    "type": "name",
+    "value": "These"
+  },
+  {
+    "index": 19,
+    "type": "name",
+    "value": "are"
+  },
+  {
+    "index": 23,
+    "type": "name",
+    "value": "names"
+  },
+  {
+    "index": 29,
+    "type": "("
+  },
+  {
+    "index": 30,
+    "type": "int",
+    "value": 5
+  },
+  {
+    "index": 31,
+    "type": ")"
+  }
+]

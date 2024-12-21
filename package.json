@@ -2,7 +2,7 @@
   "name": "@typed-gql/lexer",
   "version": "0.1.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tsx test"
   },
   "repository": {
     "type": "git",
@@ -10,6 +10,8 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }

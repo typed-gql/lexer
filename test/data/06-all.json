@@ -1,0 +1,197 @@
+[
+  {
+    "index": 0,
+    "type": "name",
+    "value": "query"
+  },
+  {
+    "index": 5,
+    "type": "("
+  },
+  {
+    "index": 6,
+    "type": "$"
+  },
+  {
+    "index": 7,
+    "type": "name",
+    "value": "cursor"
+  },
+  {
+    "index": 13,
+    "type": ":"
+  },
+  {
+    "index": 14,
+    "type": "name",
+    "value": "String"
+  },
+  {
+    "index": 20,
+    "type": "$"
+  },
+  {
+    "index": 21,
+    "type": "name",
+    "value": "include"
+  },
+  {
+    "index": 28,
+    "type": ":"
+  },
+  {
+    "index": 29,
+    "type": "name",
+    "value": "Boolean"
+  },
+  {
+    "index": 36,
+    "type": "!"
+  },
+  {
+    "index": 37,
+    "type": ")"
+  },
+  {
+    "index": 38,
+    "type": "{"
+  },
+  {
+    "index": 42,
+    "type": "name",
+    "value": "users"
+  },
+  {
+    "index": 47,
+    "type": "("
+  },
+  {
+    "index": 48,
+    "type": "name",
+    "value": "from"
+  },
+  {
+    "index": 52,
+    "type": ":"
+  },
+  {
+    "index": 53,
+    "type": "string",
+    "value": "2000-09-15T00:00:00Z"
+  },
+  {
+    "index": 75,
+    "type": "name",
+    "value": "to"
+  },
+  {
+    "index": 77,
+    "type": ":"
+  },
+  {
+    "index": 78,
+    "type": "string",
+    "value": "2000-09-29T00:00:00Z"
+  },
+  {
+    "index": 100,
+    "type": "name",
+    "value": "first"
+  },
+  {
+    "index": 105,
+    "type": ":"
+  },
+  {
+    "index": 106,
+    "type": "int",
+    "value": 5
+  },
+  {
+    "index": 108,
+    "type": "name",
+    "value": "after"
+  },
+  {
+    "index": 113,
+    "type": ":"
+  },
+  {
+    "index": 114,
+    "type": "$"
+  },
+  {
+    "index": 115,
+    "type": "name",
+    "value": "cursor"
+  },
+  {
+    "index": 121,
+    "type": ")"
+  },
+  {
+    "index": 123,
+    "type": "{"
+  },
+  {
+    "index": 129,
+    "type": "name",
+    "value": "nodes"
+  },
+  {
+    "index": 135,
+    "type": "{"
+  },
+  {
+    "index": 143,
+    "type": "name",
+    "value": "id"
+  },
+  {
+    "index": 146,
+    "type": "@"
+  },
+  {
+    "index": 147,
+    "type": "name",
+    "value": "include"
+  },
+  {
+    "index": 154,
+    "type": "("
+  },
+  {
+    "index": 155,
+    "type": "name",
+    "value": "if"
+  },
+  {
+    "index": 157,
+    "type": ":"
+  },
+  {
+    "index": 158,
+    "type": "$"
+  },
+  {
+    "index": 159,
+    "type": "name",
+    "value": "include"
+  },
+  {
+    "index": 166,
+    "type": ")"
+  },
+  {
+    "index": 172,
+    "type": "}"
+  },
+  {
+    "index": 176,
+    "type": "}"
+  },
+  {
+    "index": 178,
+    "type": "}"
+  }
+]

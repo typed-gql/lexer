@@ -1,0 +1,58 @@
+[
+  {
+    "index": 0,
+    "type": "!"
+  },
+  {
+    "index": 2,
+    "type": "@"
+  },
+  {
+    "index": 4,
+    "type": "$"
+  },
+  {
+    "index": 6,
+    "type": "&"
+  },
+  {
+    "index": 8,
+    "type": "("
+  },
+  {
+    "index": 10,
+    "type": ")"
+  },
+  {
+    "index": 12,
+    "type": "="
+  },
+  {
+    "index": 14,
+    "type": "["
+  },
+  {
+    "index": 16,
+    "type": "]"
+  },
+  {
+    "index": 18,
+    "type": "{"
+  },
+  {
+    "index": 20,
+    "type": "}"
+  },
+  {
+    "index": 22,
+    "type": "|"
+  },
+  {
+    "index": 24,
+    "type": ":"
+  },
+  {
+    "index": 26,
+    "type": "..."
+  }
+]

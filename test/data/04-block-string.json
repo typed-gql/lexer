@@ -1,0 +1,32 @@
+[
+  {
+    "index": 0,
+    "type": "string",
+    "value": ""
+  },
+  {
+    "index": 7,
+    "type": "string",
+    "value": ""
+  },
+  {
+    "index": 15,
+    "type": "string",
+    "value": "test"
+  },
+  {
+    "index": 26,
+    "type": "string",
+    "value": "test"
+  },
+  {
+    "index": 39,
+    "type": "string",
+    "value": "start\nend"
+  },
+  {
+    "index": 54,
+    "type": "string",
+    "value": "start\nend"
+  }
+]

@@ -1,0 +1,7 @@
+query($cursor:String$include:Boolean!){
+  users(from:"2000-09-15T00:00:00Z"to:"2000-09-29T00:00:00Z"first:5 after:$cursor) {
+    nodes {
+      id @include(if:$include)
+    }
+  }
+}

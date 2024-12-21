@@ -12,17 +12,17 @@ export interface StringToken extends TokenBase {
   value: string;
 }
 
-export interface PunctationToken extends TokenBase {
-  type: (typeof PUNCTATIONS)[number] | "...";
+export interface PunctuationToken extends TokenBase {
+  type: (typeof PUNCTUATIONS)[number] | "...";
 }
 
-export type Token = NumberToken | StringToken | PunctationToken;
+export type Token = NumberToken | StringToken | PunctuationToken;
 
 export interface Error extends TokenBase {
   message: string;
 }
 
-const PUNCTATIONS = [
+const PUNCTUATIONS = [
   "!",
   "@",
   "$",
@@ -58,29 +58,29 @@ export function lex(source: string): Token[] | Error {
   const result: Token[] = [];
   let index = 0;
   while (index != source.length) {
-    const current = source.charAt(index);
-    if (arrayIncludes(PUNCTATIONS, current)) {
-      result.push({ index, type: current });
+    const current = source[index];
+    if (arrayIncludes(PUNCTUATIONS, current)) {
+      result.push({ type: current, index });
       index++;
       continue;
     } else if ([" ", "\n", "\r", "\t", ","].includes(current)) {
       index++;
       continue;
-    }
-    if (
-      current === "." &&
-      (source.charAt(index + 1) !== "." || source.charAt(index + 2) !== ".")
-    ) {
-      return {
-        message: "Invalid '.' that's not part of '...'",
-        index,
-      };
-    }
-    if (current === '"') {
-      if (source.charAt(index + 1) === '"') {
-        if (source.charAt(index + 2) === '"') {
+    } else if (current === ".") {
+      if (source[index + 1] !== "." || source[index + 2] !== ".") {
+        return {
+          message: "Invalid '.' that's not part of '...' or float",
+          index,
+        };
+      }
+      result.push({ type: "...", index });
+      index += 3;
+      continue;
+    } else if (current === '"') {
+      if (source[index + 1] === '"') {
+        if (source[index + 2] === '"') {
           let endIndex = source.indexOf('"""', index + 3);
-          while (endIndex !== -1 && source.charAt(endIndex - 1) === "\\") {
+          while (endIndex !== -1 && source[endIndex - 1] === "\\") {
             if (endIndex === -1) {
               return { message: "Unterminated block string", index };
             }
@@ -101,11 +101,8 @@ export function lex(source: string): Token[] | Error {
         continue;
       }
       let endIndex = index + 1;
-      while (
-        source.charAt(endIndex) !== '"' ||
-        source.charAt(endIndex - 1) === "\\"
-      ) {
-        if (source.charAt(endIndex) === "\n") {
+      while (source[endIndex] !== '"' || source[endIndex - 1] === "\\") {
+        if (source[endIndex] === "\n") {
           return { message: "Unterminated string", index };
         }
         endIndex++;
@@ -118,6 +115,7 @@ export function lex(source: string): Token[] | Error {
       }
       result.push({ type: "string", value: postprocessResult.value, index });
       index = endIndex + 1;
+      continue;
     } else if (current === "#") {
       const endIndex = current.indexOf("\n", index);
       if (endIndex === -1) {
@@ -126,16 +124,130 @@ export function lex(source: string): Token[] | Error {
         index = endIndex + 1;
       }
       continue;
+    } else if (/[0-9-]/.test(current)) {
+      let isNegative = false;
+      let isFloat = false;
+      let length = 0;
+      let value = 0;
+      if (current === "-") {
+        isNegative = true;
+        length++;
+      }
+      if (source[index + length] === "0") {
+        length++;
+        if (/\d/.test(source[index + length])) {
+          return { message: "Invalid number literal", index };
+        }
+      } else if (!/[1-9]/.test(source[index + length])) {
+        return { message: "Invalid number literal", index };
+      }
+      while (/\d/.test(source[index + length])) {
+        value = value * 10 + parseInt(source[index + length]);
+        length++;
+      }
+      if (source[index + length] === ".") {
+        isFloat = true;
+        length++;
+        let base = 1;
+        if (!/\d/.test(source[index + length])) {
+          return { message: "Invalid number literal", index };
+        }
+        while (/\d/.test(source[index + length])) {
+          base /= 10;
+          value += base * parseInt(source[index + length]);
+          length++;
+        }
+      }
+      if (source[index + length] === "e" || source[index + length] === "E") {
+        isFloat = true;
+        length++;
+        let isNegative = false;
+        if (source[index + length] === "+") {
+          length++;
+        } else if (source[index + length] === "-") {
+          isNegative = true;
+          length++;
+        }
+        let exponent = 1;
+        if (!/\d/.test(source[index + length])) {
+          return { message: "Invalid number literal", index };
+        }
+        while (/\d/.test(source[index + length])) {
+          exponent = exponent * 10 + parseInt(source[index + length]);
+          length++;
+        }
+        if (isNegative) {
+          exponent *= -1;
+        }
+        value *= Math.pow(10, exponent);
+      }
+      if (isNegative) {
+        value *= 1;
+      }
+      if (/[a-zA-Z_.]/.test(source[index + length])) {
+        return { message: "Invalid number literal", index };
+      }
+      result.push({ type: isFloat ? "float" : "int", value, index });
+      index += length;
+      continue;
+    } else if (/[a-zA-Z_]/.test(current)) {
+      let length = 1;
+      while (/\w/.test(source[index + length])) {
+        length++;
+      }
+      result.push({
+        type: "name",
+        value: source.substring(index, index + length),
+        index,
+      });
+      index += length;
+      continue;
     }
-    // TODO: number tokens
     return { message: "Unrecognized source character", index };
   }
   return result;
 }
 
 function postprocessBlockString(raw: string): string {
-  return raw;
-  // TODO:
+  const lines = raw.split(/\r\n|[\n\r]/);
+
+  let commonIndent: number | null = null;
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i];
+
+    const indent = line.match(/^\s*/)?.[0]?.length ?? 0;
+    if (
+      indent < line.length &&
+      (commonIndent === null || indent < commonIndent)
+    ) {
+      commonIndent = indent;
+    }
+  }
+
+  if (commonIndent !== null) {
+    for (let i = 1; i < lines.length; i++) {
+      lines[i] = lines[i].slice(commonIndent);
+    }
+  }
+
+  while (lines.length > 0 && lines[0].trim() === "") {
+    lines.shift();
+  }
+
+  while (lines.length > 0 && lines[lines.length - 1].trim() === "") {
+    lines.pop();
+  }
+
+  let formatted = "";
+  for (let i = 0; i < lines.length; i++) {
+    if (i > 0) {
+      formatted += "\n";
+    }
+    formatted += lines[i];
+  }
+
+  return formatted;
 }
 
 type PostprocessStringResult =
