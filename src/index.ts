@@ -13,7 +13,21 @@ export interface StringToken extends TokenBase {
 }
 
 export interface PunctuationToken extends TokenBase {
-  type: (typeof PUNCTUATIONS)[number] | "...";
+  type:
+    | "!"
+    | "@"
+    | "$"
+    | "&"
+    | "("
+    | ")"
+    | "="
+    | "["
+    | "]"
+    | "{"
+    | "}"
+    | "|"
+    | ":"
+    | "...";
 }
 
 export type Token = NumberToken | StringToken | PunctuationToken;
