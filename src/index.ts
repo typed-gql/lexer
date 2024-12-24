@@ -85,7 +85,7 @@ export function lex(source: string): Token[] | Error {
       if (source[index + 1] === '"') {
         if (source[index + 2] === '"') {
           let endIndex = source.indexOf('"""', index + 3);
-          while (endIndex !== -1 && source[endIndex - 1] === "\\") {
+          while (endIndex === -1 || source[endIndex - 1] === "\\") {
             if (endIndex === -1) {
               return { message: "Unterminated block string", index };
             }

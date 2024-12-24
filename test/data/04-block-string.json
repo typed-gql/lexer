@@ -28,5 +28,10 @@
     "index": 54,
     "type": "string",
     "value": "start\nend"
+  },
+  {
+    "index": 78,
+    "type": "string",
+    "value": ""
   }
 ]

@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@typed-gql/lexer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.build.json && cpy README.md dist && package-json-minifier",
     "test": "tsx test"
