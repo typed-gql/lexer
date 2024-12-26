@@ -122,7 +122,7 @@ export function lex(source: string): Token[] | Error {
       index = endIndex + 1;
       continue;
     } else if (current === "#") {
-      const endIndex = current.indexOf("\n", index);
+      const endIndex = source.indexOf("\n", index);
       if (endIndex === -1) {
         index = source.length;
       } else {
